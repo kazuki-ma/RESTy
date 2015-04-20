@@ -59,15 +59,17 @@ public class InvocationHandlerImplementation//
   private final Gson gson = new Gson();
 
   private final String urlBase;
+  private final HttpRequestInitializer httpRequestInitializer;
 
-  public InvocationHandlerImplementation(Class<?> target, String urlBase) {
-    log = LoggerFactory.getLogger(target.getCanonicalName() + "(RESTy)");
+  public InvocationHandlerImplementation(String urlBase, HttpRequestInitializer httpRequestInitializer, Class<?> target) {
+	log = LoggerFactory.getLogger(target.getCanonicalName() + "(RESTy)");
     Path path = target.getAnnotation(Path.class);
     if (path != null) {
       this.urlBase = urlBase + path.value();
     } else {
       this.urlBase = urlBase;
     }
+    this.httpRequestInitializer = httpRequestInitializer;
   }
 
   @Override
@@ -173,10 +175,7 @@ public class InvocationHandlerImplementation//
       final Map<Object, Object> jsonData) throws IOException {
 
     final HttpRequestFactory requestFactory =
-        this.httpTransport.createRequestFactory(new HttpRequestInitializer() {
-          @Override
-          public void initialize(HttpRequest request) throws IOException {}
-        });
+        this.httpTransport.createRequestFactory(httpRequestInitializer);
 
     switch (httpMethod) {
       case HttpMethod.HEAD:

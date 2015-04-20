@@ -1,9 +1,14 @@
 package la.serendipity.resty;
 
+import java.io.IOException;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
 
 import la.serendipity.RESTy;
 
@@ -14,7 +19,13 @@ public class MD5RemoteCalculateTest {
    */
   @Test
   public void testMD5() {
-    JsonTestCom.MD5 remoteMD5Calculator = RESTy.matelialize(JsonTestCom.MD5.class);
+	HttpRequestInitializer initializer = new HttpRequestInitializer(){
+	@Override
+	public void initialize(HttpRequest request) throws IOException {
+		request.getHeaders().setUserAgent("My Junit Test");
+	}
+	};
+    JsonTestCom.MD5 remoteMD5Calculator = RESTy.matelialize("", initializer, JsonTestCom.MD5.class);
 
     JsonTestCom.MD5Result md5Result = remoteMD5Calculator.calculate("TEST");
     log.debug("{}", md5Result);
