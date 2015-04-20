@@ -5,7 +5,7 @@
 	<artifactId>resty</artifactId>
 
 	<packaging>jar</packaging>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>RESTy</name>
 	<description>Declarative REST mapper for Java.</description>
 	<url>https://laserendipity.github.io/RESTy/</url>
