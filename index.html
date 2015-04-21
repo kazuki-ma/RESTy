@@ -50,8 +50,8 @@
 それでは、以下で詳しく内容を見ていきます。
 </p>
 
-<h3>JavaBean クラスの作成</h3>
-<p>対象のデータを表現する JavaBean クラスを作成します。RESTy が問題無くオブジェクトを扱えるように、引数無しのデフォルトコンストラクタが必須です。</p>
+<h3>Java クラスの作成</h3>
+<p>対象のデータを表現する Java クラスを作成します。RESTy が問題無くオブジェクトを扱えるように、引数無しのデフォルトコンストラクタが必須です。</p>
 <p>先ほどの JSON を受け取るのであれば、以下のようになると思います。</p>
 <pre><code>class Message {
     String message;
@@ -85,18 +85,25 @@ public interface SampleRESTServer {
 <pre><code>import la.serendipity.RESTy;
 
 public class FirstRESTy{
-	public static void main(String[] args) {
-	    // SampleRESTServer.class を実体化
-	    SampleRESTServer serverInterface = RESTy.matelialize(SampleRESTServer.class);
-	    
-	    // インタフェースを利用して、サーバーの getMessageJSON() メソッドを呼び出す
-	    Message result = serverInterface.getMessageJSON();
-	    
-	    // Print message.
-	    System.out.println(result.message);        
-	}	
+    public static void main(String[] args) {
+        // SampleRESTServer.class を実体化
+        SampleRESTServer serverInterface = RESTy.matelialize(SampleRESTServer.class);
+        
+        // インタフェースを利用して、サーバーの getMessageJSON() メソッドを呼び出す
+        Message result = serverInterface.getMessageJSON();
+
+        // Print message.
+        System.out.println(result.message);        
+    }	
 }</code></pre>
 <p><code>Hello, RESTy!</code> と表示されましたか？</p>
+
+<h3>類似のプロジェクト</h3>
+<p>プロジェクトを Maven Central に登録する所までいってから、類似のプロジェクトがあることが解りました……どうしてくれよう</p>
+<dl>
+<dt><a href="https://github.com/ggeorgovassilis/spring-rest-invoker">ggeorgovassilis/spring-rest-invoker</a></dt>
+<dd>spring-rest-invoker は全く同じ発想のプロジェクトで、JAX-RS の他に、Spring Annotation をサポートしています。</dd>
+</dl>
 
 <h3>その他の機能（開発中）</h3>
 <dl>
